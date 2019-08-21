@@ -53,7 +53,7 @@ namespace FakeReddit.Controllers
                 dbContext.SaveChanges();
 
                 SessionUser = newUser.UserId;
-                return RedirectToAction("Show", new {id=newUser.UserId});
+                return RedirectToAction("Index", "Posts");
             }
             return View("Index");
         }
@@ -81,7 +81,7 @@ namespace FakeReddit.Controllers
                 // if check is null, no email exists
                 if(check == null)
                 {
-                    ModelState.AddModelError("LogUser.LogEmail", "Invalid Email/Password");
+                    ModelState.AddModelError("LogUser.LogEmail", "BAD Email/Password");
                     return View("Index");
                 }
 
@@ -90,7 +90,7 @@ namespace FakeReddit.Controllers
                 var result = hasher.VerifyHashedPassword(user, check.Password, user.LogPassword);
                 if(result == 0)
                 {
-                    ModelState.AddModelError("LogUser.LogEmail", "Invalid Email/Password");
+                    ModelState.AddModelError("LogUser.LogEmail", "BAD Email/Password");
                     return View("Index");
                 }
             
